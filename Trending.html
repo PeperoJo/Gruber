@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    
+    <style>
+  div.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: gray;
+    padding: 0px;
+    margin: 0px;
+    font-size: 20px;
+    width: 100%
+  }
+  body {
+    background-color: #FFFFFF;
+  }
+
+  h1 {
+    color: black;
+    text-align: center;
+  }
+
+  p {
+    font-family: verdana;
+    font-size: 20px;
+  }
+
+  .card {
+    position: relative;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.1);
+    width: 400px;
+    z-index: -1;
+    /*padding: 25px;*/
+
+  }
+  .cardpreview {
+    object-fit: cover;
+  }
+  div img {
+    background-image: linear-gradient(
+      hsla(10, 10%, 0%, 0.6),
+      transparent;
+    );
+
+    width: 100%;
+    height: 125px;
+    overflow: hidden;
+    border-radius: 5px 5px 0px 0px;
+    /*max-width:100%;
+    max-height:100px;*/
+  }
+  .default-user {
+    position: absolute;
+    outline: #e8e8e8 solid 1px;
+    -webkit-filter: grayscale(90%);
+    filter: grayscale(90%);
+}
+  div .cardinfo {
+    margin: 10px;
+    margin-bottom: 10px;
+  }
+  .cardlocation {
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    left: 25px;
+    top: 75px;
+    color: white;
+    font-size: 30px;
+}
+</style>
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"> </script>
+    <script src="app.js"></script>
+</head>
+<body>
+    <div class="sticky"><a href="index.html">Gruber</a> <a href="Explore.html">Explore</a> <a href="Trending.html">Trending</a> <a href="News.html">News</a> </div>
+    This is the trending page
+    
+</body>        
+</html>

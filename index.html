@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
 <style>
   div.sticky {
@@ -42,15 +42,12 @@
   .cardpreview {
     object-fit: cover;
   }
-  .gradient {
-  max-width: 100%;
-  margin: auto;
-}
-  .gradient::after {
-    /*background: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.738) 19%, rgba(0, 0, 0, 0.541) 34%, rgba(0, 0, 0, 0.382) 47%, rgba(0, 0, 0, 0.278) 56.5%, rgba(0, 0, 0, 0.194) 65%, rgba(0, 0, 0, 0.126) 73%, rgba(0, 0, 0, 0.075) 80.2%, rgba(0, 0, 0, 0.042) 86.1%, rgba(0, 0, 0, 0.021) 91%, rgba(0, 0, 0, 0.008) 95.2%, rgba(0, 0, 0, 0.002) 98.2%, transparent 100%);*/
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%);
-  }
   div img {
+    background-image: linear-gradient(
+      hsla(10, 10%, 0%, 0.6),
+      transparent;
+    );
+
     width: 100%;
     height: 125px;
     overflow: hidden;
@@ -65,8 +62,8 @@
     filter: grayscale(90%);
 }
   div .cardinfo {
-    margin: 10px;
-    margin-bottom: 10px;
+    margin: 20px;
+    margin-bottom: 20px;
   }
   .cardlocation {
     font-family: 'Roboto', sans-serif;
@@ -76,51 +73,59 @@
     color: white;
     font-size: 30px;
 }
+  hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    border-color: #dddddd;
+  }
+  .buttonCard {
+    font-family: 'Roboto', sans-serif;
+    /*font-weight: bold;*/
+    /*background-color: blue;*/
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .buttonGroup {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+  }
+  .btJoin {
+    color: #6BC16D;
+  }
+  .btInt {
+    color: #2f527b;
+  }
+  .btDis{
+    color: #b24944;
+  }
 </style>
+
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"> </script>
+      <script src="app.js"></script>
+
 </head>
 
-<body>
-<div class="sticky">Place holder for nav bar</div>
+<body ng-controller="mainController">
 
-<div class="card">
-  <div class="gradient">
-    <img class="cardpreview" src="https://media.timeout.com/images/105167564/1372/772/image.jpg">
-  </div>
-  <div class="cardlocation">Chicago, IL</div>
-  <div class="cardinfo">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate, eros quis vulputate convallis, lectus mauris ornare tortor, vel malesuada arcu diam id eros. Vestibulum quis purus et felis eleifend auctor. Proin sed eros feugiat, faucibus ipsum sit amet, sagittis dolor. Aenean posuere leo in faucibus congue. In hac habitasse platea dictumst. Etiam in nisi elementum, maximus felis eu, cursus nisi. Quisque ac commodo neque. Fusce elit risus, pulvinar ac magna eu, sagittis vestibulum arcu.
-  </div>
-</div>
-<div class="card">
-  <img class="cardpreview" src="https://images.pexels.com/photos/450597/pexels-photo-450597.jpeg">
-<div class="cardlocation">New York City, NY</div>
-  <div class="cardinfo">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate, eros quis vulputate convallis, lectus mauris ornare tortor, vel malesuada arcu diam id eros. Vestibulum quis purus et felis eleifend auctor. Proin sed eros feugiat, faucibus ipsum sit amet, sagittis dolor. Aenean posuere leo in faucibus congue. In hac habitasse platea dictumst. Etiam in nisi elementum, maximus felis eu, cursus nisi. Quisque ac commodo neque. Fusce elit risus, pulvinar ac magna eu, sagittis vestibulum arcu.
-</div>
-</div>
+<div class="sticky"><a href="index.html">Gruber</a> <a href="Explore.html">Explore</a> <a href="Trending.html">Trending</a> <a href="News.html">News</a> </div>
 
-<div class="card">
-  <img class="cardpreview" src="https://images.pexels.com/photos/450597/pexels-photo-450597.jpeg">
-<div class="cardlocation">New York City, NY</div>
+<div class="card" ng-repeat="item in cards track by $index">
+  <img class="cardpreview" ng-src="{{item.link}}">
+  <div class="cardlocation">{{item.location}}</div>
   <div class="cardinfo">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate, eros quis vulputate convallis, lectus mauris ornare tortor, vel malesuada arcu diam id eros. Vestibulum quis purus et felis eleifend auctor. Proin sed eros feugiat, faucibus ipsum sit amet, sagittis dolor. Aenean posuere leo in faucibus congue. In hac habitasse platea dictumst. Etiam in nisi elementum, maximus felis eu, cursus nisi. Quisque ac commodo neque. Fusce elit risus, pulvinar ac magna eu, sagittis vestibulum arcu.
-</div>
+      {{item.info}}
+  </div>
+  <hr>
+  <div class="buttonGroup">
+    <div class= "buttonCard btJoin">JOIN</div>
+    <div class= "buttonCard btInt">INTERESTED</div>
+    <div class= "buttonCard btDis">DISMISS</div>
+  </div>
+
 </div>
 
-<div class="card">
-  <img class="cardpreview" src="https://images.pexels.com/photos/450597/pexels-photo-450597.jpeg">
-  <div class="cardlocation">New York City, NY</div>
-  <div class="cardinfo">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate, eros quis vulputate convallis, lectus mauris ornare tortor, vel malesuada arcu diam id eros. Vestibulum quis purus et felis eleifend auctor. Proin sed eros feugiat, faucibus ipsum sit amet, sagittis dolor. Aenean posuere leo in faucibus congue. In hac habitasse platea dictumst. Etiam in nisi elementum, maximus felis eu, cursus nisi. Quisque ac commodo neque. Fusce elit risus, pulvinar ac magna eu, sagittis vestibulum arcu.
-  </div>
-</div>
-<div class="card">
-  <img class="cardpreview" src="https://images.pexels.com/photos/450597/pexels-photo-450597.jpeg">
-<div class="cardlocation">New York City, NY</div>
-  <div class="cardinfo">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate, eros quis vulputate convallis, lectus mauris ornare tortor, vel malesuada arcu diam id eros. Vestibulum quis purus et felis eleifend auctor. Proin sed eros feugiat, faucibus ipsum sit amet, sagittis dolor. Aenean posuere leo in faucibus congue. In hac habitasse platea dictumst. Etiam in nisi elementum, maximus felis eu, cursus nisi. Quisque ac commodo neque. Fusce elit risus, pulvinar ac magna eu, sagittis vestibulum arcu.
-</div>
-</div>
 </body>
 </html>
