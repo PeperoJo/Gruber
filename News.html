@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html ng-app="myApp">
+<!DOCTYPE HTML>
+<html>
 <head>
-<style>
+    
+    <style>
   div.sticky {
     position: -webkit-sticky;
     position: sticky;
@@ -75,24 +76,13 @@
 }
 </style>
     
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"> </script>
-      <script src="app.js"></script>
-    
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"> </script>
+    <script src="app.js"></script>
 </head>
-
-<body ng-controller="mainController">
+<body>
+    <div class="sticky"><a href="index.html">Gruber</a> <a href="Explore.html">Explore</a> <a href="Trending.html">Trending</a> <a href="News.html">News</a> </div>
+    This is the news page
     
-<div class="sticky"><a href="index.html">Gruber</a> <a href="Explore.html">Explore</a> <a href="Trending.html">Trending</a> <a href="News.html">News</a> </div>
-    
-<div class="card" ng-repeat="item in cards track by $index">
-  <img class="cardpreview" ng-src="{{item.link}}">
-  <div class="cardlocation">{{item.location}}</div>
-  <div class="cardinfo">
-      {{item.info}}
-  </div>
-
-</div>
-    
-</body>
+</body>        
 </html>
