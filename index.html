@@ -62,8 +62,8 @@
     filter: grayscale(90%);
 }
   div .cardinfo {
-    margin: 10px;
-    margin-bottom: 10px;
+    margin: 20px;
+    margin-bottom: 20px;
   }
   .cardlocation {
     font-family: 'Roboto', sans-serif;
@@ -73,26 +73,59 @@
     color: white;
     font-size: 30px;
 }
+  hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    border-color: #dddddd;
+  }
+  .buttonCard {
+    font-family: 'Roboto', sans-serif;
+    /*font-weight: bold;*/
+    /*background-color: blue;*/
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .buttonGroup {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+  }
+  .btJoin {
+    color: #6BC16D;
+  }
+  .btInt {
+    color: #2f527b;
+  }
+  .btDis{
+    color: #b24944;
+  }
 </style>
-    
+
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"> </script>
       <script src="app.js"></script>
-    
+
 </head>
 
 <body ng-controller="mainController">
-    
+
 <div class="sticky"><a href="index.html">Gruber</a> <a href="Explore.html">Explore</a> <a href="Trending.html">Trending</a> <a href="News.html">News</a> </div>
-    
+
 <div class="card" ng-repeat="item in cards track by $index">
   <img class="cardpreview" ng-src="{{item.link}}">
   <div class="cardlocation">{{item.location}}</div>
   <div class="cardinfo">
       {{item.info}}
   </div>
+  <hr>
+  <div class="buttonGroup">
+    <div class= "buttonCard btJoin">JOIN</div>
+    <div class= "buttonCard btInt">INTERESTED</div>
+    <div class= "buttonCard btDis">DISMISS</div>
+  </div>
 
 </div>
-    
+
 </body>
 </html>
