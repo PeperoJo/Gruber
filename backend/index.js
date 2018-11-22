@@ -5,11 +5,11 @@ const app = express();
 var Uber = require('node-uber');
 
 var uber = new Uber({
-  client_id: '35x43Hkw7jfYO8428ecVsUhh5zZ3s8Sf',
-  client_secret: 'sC7nI48mzsQcJd82OmXK9zkxDFK8VlsRyzGMvRck',
-  server_token: 'HvU3swHGbI0SfwGrYzjHaQYHhv8Y0bwF7n-b9veP',
+  client_id: '2qgPXqUuIBG-hy4B--7Kpnj3g439mHZc',
+  client_secret: 'yVCHHqCV_2JbUb8OPjn96JsxKiRhPBWyGnuyPaR1',
+  server_token: 'V5QIaLdSHE2GYSzn1xL-ZYc0yVnlYkFIAiYJkDYl',
   redirect_uri: 'http://localhost:3000',
-  name: 'Groberr', //Uber does not allow project names to have the word "uber" in them
+  name: 'Grober', //Uber does not allow project names to have the word "uber" in them
   language: 'en_US', // optional, defaults to en_US
   sandbox: true, // optional, defaults to false
   // proxy: 'PROXY URL' // optional, defaults to none
@@ -18,7 +18,25 @@ var uber = new Uber({
 app.get('/api/login', function(request, response) {
   // alert("wassup");
   var url = uber.getAuthorizeUrl(['history','profile', 'request', 'places']);
+  console.log('URL: ' + url);
   response.redirect(url);
+});
+
+app.get('/api/callback', function(request, response) {
+  uber.authorizationAsync({authorization_code: request.query.code})
+  .spread(function(access_token, refresh_token, authorizedScopes, tokenExpiration) {
+    // store the user id and associated access_token, refresh_token, scopes and token expiration date
+    console.log('New access_token retrieved: ' + access_token);
+    console.log('... token allows access to scopes: ' + authorizedScopes);
+    console.log('... token is valid until: ' + tokenExpiration);
+    console.log('... after token expiration, re-authorize using refresh_token: ' + refresh_token);
+
+    // redirect the user back to your actual app
+    response.redirect('/web/index.html');
+  })
+  .error(function(err) {
+    console.error(err);
+  });
 });
 
 const cards = [
