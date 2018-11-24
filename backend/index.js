@@ -6,24 +6,26 @@ var Uber = require('node-uber');
 
 var uber = new Uber({
   client_id: '2qgPXqUuIBG-hy4B--7Kpnj3g439mHZc',
-  client_secret: 'yVCHHqCV_2JbUb8OPjn96JsxKiRhPBWyGnuyPaR1',
+  client_secret: 'vzMgBzuX6VcPOQ1BMXsPPha3MA-zvyrDcP3mXQs4',
   server_token: 'V5QIaLdSHE2GYSzn1xL-ZYc0yVnlYkFIAiYJkDYl',
-  redirect_uri: 'http://localhost:3000',
+  redirect_uri: 'http://localhost:3000/',
   name: 'Grober', //Uber does not allow project names to have the word "uber" in them
   language: 'en_US', // optional, defaults to en_US
   sandbox: true, // optional, defaults to false
   // proxy: 'PROXY URL' // optional, defaults to none
 });
 
-app.get('/api/login', function(request, response) {
+app.get('/index', function(request, response) {
   // alert("wassup");
   var url = uber.getAuthorizeUrl(['history','profile', 'request', 'places']);
   console.log('URL: ' + url);
   response.redirect(url);
 });
 
-app.get('/api/callback', function(request, response) {
-  uber.authorizationAsync({authorization_code: request.query.code})
+app.get('/',function(request, response){
+  var code = request.query.code;
+  console.log('Code: '+ code);
+  uber.authorizationAsync({authorization_code: code})
   .spread(function(access_token, refresh_token, authorizedScopes, tokenExpiration) {
     // store the user id and associated access_token, refresh_token, scopes and token expiration date
     console.log('New access_token retrieved: ' + access_token);
@@ -32,13 +34,30 @@ app.get('/api/callback', function(request, response) {
     console.log('... after token expiration, re-authorize using refresh_token: ' + refresh_token);
 
     // redirect the user back to your actual app
-    response.redirect('/web/index.html');
+    response.redirect('/location?lat=48.852737&lng=2.350699');//Need to change according to front-end
   })
   .error(function(err) {
     console.error(err);
   });
 });
 
+app.get('/location', function(request, response) {
+  // extract the query from the request URL
+  var query = request.query;
+  // if no query params sent, respond with Bad Request
+  if (!query || !query.lat || !query.lng) {
+    response.sendStatus(400);
+  } else {
+    uber.products.getAllForLocationAsync(query.lat, query.lng)
+    .then(function(res) {
+        response.json(res);
+    })
+    .error(function(err) {
+      console.error(err);
+      response.sendStatus(500);
+    });
+  }
+});
 const cards = [
         {id: 0,'location': 'Chicago, IL','price': '1','time': '10:00 PM', 'link': 'https://images.unsplash.com/photo-1524168272322-bf73616d9cb5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=161ce6b10a1b9518237d89cc7510a018&auto=format&fit=crop&w=3300&q=80',
         'info':'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate, eros quis vulputate convallis, lectus mauris ornare tortor, vel malesuada arcu diam id eros. Vestibulum quis purus et felis eleifend auctor. Proin sed eros feugiat, faucibus ipsum sit amet, sagittis dolor. Aenean posuere leo in faucibus congue. In hac habitasse platea dictumst. Etiam in nisi elementum, maximus felis eu, cursus nisi. Quisque ac commodo neque. Fusce elit risus, pulvinar ac magna eu, sagittis vestibulum arcu.'},
