@@ -34,7 +34,7 @@ app.get('/',function(request, response){
     console.log('... after token expiration, re-authorize using refresh_token: ' + refresh_token);
 
     // redirect the user back to your actual app
-    response.redirect('/location?lat=48.852737&lng=2.350699');//Need to change according to front-end
+    response.redirect('/location?address=1455 Market St, San Francisco, CA 94103, US');//Need to change according to front-end
   })
   .error(function(err) {
     console.error(err);
@@ -45,10 +45,10 @@ app.get('/location', function(request, response) {
   // extract the query from the request URL
   var query = request.query;
   // if no query params sent, respond with Bad Request
-  if (!query || !query.lat || !query.lng) {
+  if (!query || !query.address) {
     response.sendStatus(400);
   } else {
-    uber.products.getAllForLocationAsync(query.lat, query.lng)
+    uber.products.getAllForAddressAsync(query.address)
     .then(function(res) {
         response.json(res);
     })
