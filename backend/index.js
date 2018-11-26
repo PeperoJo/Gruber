@@ -17,7 +17,7 @@ var uber = new Uber({
 
 app.get('/index', function(request, response) {
   // alert("wassup");
-  var url = uber.getAuthorizeUrl(['history','profile', 'request', 'places']);
+  var url = uber.getAuthorizeUrl(['history','profile', 'request', 'places','ride_widgets']);
   console.log('URL: ' + url);
   response.redirect(url);
 });
@@ -34,7 +34,7 @@ app.get('/',function(request, response){
     console.log('... after token expiration, re-authorize using refresh_token: ' + refresh_token);
 
     // redirect the user back to your actual app
-    response.redirect('/location?address=1455 Market St, San Francisco, CA 94103, US');//Need to change according to front-end
+    response.redirect('/location?address=University of Notre Dame, 1251 N Eddy St Ste 400, South Bend, IN 46617, US');//Need to change according to front-end
   })
   .error(function(err) {
     console.error(err);
