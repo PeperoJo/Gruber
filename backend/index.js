@@ -1,8 +1,11 @@
 //require/import dependencies
 const express = require('express');
+const result = require('dotenv').config();
 //define variables
 const app = express();
 var Uber = require('node-uber');
+const opencage = require('opencage-api-client');
+
 
 var uber = new Uber({
   client_id: '2qgPXqUuIBG-hy4B--7Kpnj3g439mHZc',
@@ -14,6 +17,36 @@ var uber = new Uber({
   sandbox: true, // optional, defaults to false
   // proxy: 'PROXY URL' // optional, defaults to none
 });
+/*if(result.error){ Test to see if API key was loaded in
+  throw result.error;
+}
+console.log(result.parsed);*/
+
+opencage.geocode({q: 'Theresienhöhe 11, München'}).then(data => {
+  console.log(JSON.stringify(data));
+  if (data.status.code == 200) {
+    if (data.results.length > 0) {
+      var place = data.results[0];
+      console.log(place.formatted);
+      console.log(place.geometry);
+      console.log(place.annotations.timezone.name);
+    }
+  } else if (data.status.code == 402) {
+    console.log('hit free-trial daily limit');
+    console.log('become a customer: https://opencagedata.com/pricing'); 
+  } else {
+    // other possible response codes:
+    // https://opencagedata.com/api#codes
+    console.log('error', data.status.message);
+  }
+}).catch(error => {
+  console.log('error', error.message);
+});
+
+// ... prints
+// Theresienhöhe 11, 80339 Munich, Germany
+// { lat: 48.1341651, lng: 11.5464794 }
+// Europe/Berlin
 
 app.get('/index', function(request, response) {
   // alert("wassup");
@@ -34,7 +67,7 @@ app.get('/',function(request, response){
     console.log('... after token expiration, re-authorize using refresh_token: ' + refresh_token);
 
     // redirect the user back to your actual app
-    //response.redirect('/location/address?address= 1251 N Eddy St Ste 400, South Bend, IN 46617, US');
+    //response.redirect('/location/address?address=268 Strecker Farms Ct., Wildwood, MO 63011');
     response.redirect('/location/coordinates?lat=41.70578&lng=-86.23504');//Need to change according to front-end
   })
   .error(function(err) {
@@ -49,7 +82,6 @@ app.get('/location/address', function(request, response) {
   if (!query || !query.address) {
     response.sendStatus(400);
   } else {
-    console.log('Test Address: '+ query.address);
     uber.products.getAllForAddressAsync(query.address)
     .then(function(res) {
         response.json(res);
@@ -59,6 +91,16 @@ app.get('/location/address', function(request, response) {
       response.sendStatus(500);
     });
   }
+
+  /*if (!query || !query.address) {
+    response.sendStatus(400);
+  } else {
+    console.log('Test Address: '+ query.address);
+    geocoder.geocode(query.address,function (err, data){
+    response.json(data);
+    });
+   
+  }*/
 });
 
 app.get('/location/coordinates', function(request, response) {
