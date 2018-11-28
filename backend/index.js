@@ -22,25 +22,30 @@ var uber = new Uber({
 }
 console.log(result.parsed);*/
 
-opencage.geocode({q: 'Theresienhöhe 11, München'}).then(data => {
-  console.log(JSON.stringify(data));
-  if (data.status.code == 200) {
-    if (data.results.length > 0) {
-      var place = data.results[0];
-      console.log(place.formatted);
-      console.log(place.geometry);
-      console.log(place.annotations.timezone.name);
+app.get('/location/address', function(request, response) {
+  var query = request.query;
+  var addr = query.address;
+  opencage.geocode({q: addr}).then(data => {
+    console.log(JSON.stringify(data));
+    if (data.status.code == 200) {
+      if (data.results.length > 0) {
+        var place = data.results[0];
+        console.log(place.formatted);
+        console.log(place.geometry);
+        console.log(place.annotations.timezone.name);
+        response.redirect('/location/coordinates?lat='+ place.geometry.lat + '&lng=' + place.geometry.lng);
+      }
+    } else if (data.status.code == 402) {
+      console.log('hit free-trial daily limit');
+      console.log('become a customer: https://opencagedata.com/pricing'); 
+    } else {
+      // other possible response codes:
+      // https://opencagedata.com/api#codes
+      console.log('error', data.status.message);
     }
-  } else if (data.status.code == 402) {
-    console.log('hit free-trial daily limit');
-    console.log('become a customer: https://opencagedata.com/pricing'); 
-  } else {
-    // other possible response codes:
-    // https://opencagedata.com/api#codes
-    console.log('error', data.status.message);
-  }
-}).catch(error => {
-  console.log('error', error.message);
+  }).catch(error => {
+    console.log('error', error.message);
+  });
 });
 
 // ... prints
@@ -67,8 +72,8 @@ app.get('/',function(request, response){
     console.log('... after token expiration, re-authorize using refresh_token: ' + refresh_token);
 
     // redirect the user back to your actual app
-    //response.redirect('/location/address?address=268 Strecker Farms Ct., Wildwood, MO 63011');
-    response.redirect('/location/coordinates?lat=41.70578&lng=-86.23504');//Need to change according to front-end
+    response.redirect('/location/address?address=268 Strecker Farms Ct., Wildwood, MO 63011');
+    // response.redirect('/location/coordinates?lat=41.70578&lng=-86.23504');//Need to change according to front-end
   })
   .error(function(err) {
     console.error(err);
