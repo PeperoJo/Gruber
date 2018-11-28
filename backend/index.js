@@ -34,21 +34,42 @@ app.get('/',function(request, response){
     console.log('... after token expiration, re-authorize using refresh_token: ' + refresh_token);
 
     // redirect the user back to your actual app
-    response.redirect('/location?address=University of Notre Dame, 1251 N Eddy St Ste 400, South Bend, IN 46617, US');//Need to change according to front-end
+    //response.redirect('/location/address?address= 1251 N Eddy St Ste 400, South Bend, IN 46617, US');
+    response.redirect('/location/coordinates?lat=41.70578&lng=-86.23504');//Need to change according to front-end
   })
   .error(function(err) {
     console.error(err);
   });
 });
 
-app.get('/location', function(request, response) {
+app.get('/location/address', function(request, response) {
   // extract the query from the request URL
   var query = request.query;
   // if no query params sent, respond with Bad Request
   if (!query || !query.address) {
     response.sendStatus(400);
   } else {
+    console.log('Test Address: '+ query.address);
     uber.products.getAllForAddressAsync(query.address)
+    .then(function(res) {
+        response.json(res);
+    })
+    .error(function(err) {
+      console.error(err);
+      response.sendStatus(500);
+    });
+  }
+});
+
+app.get('/location/coordinates', function(request, response) {
+  // extract the query from the request URL
+  var query = request.query;
+
+  // if no query params sent, respond with Bad Request
+  if (!query || !query.lat || !query.lng) {
+    response.sendStatus(400);
+  } else {
+    uber.products.getAllForLocationAsync(query.lat, query.lng)
     .then(function(res) {
         response.json(res);
     })
