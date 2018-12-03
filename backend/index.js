@@ -80,34 +80,6 @@ app.get('/',function(request, response){
   });
 });
 
-app.get('/location/address', function(request, response) {
-  // extract the query from the request URL
-  var query = request.query;
-  // if no query params sent, respond with Bad Request
-  if (!query || !query.address) {
-    response.sendStatus(400);
-  } else {
-    uber.products.getAllForAddressAsync(query.address)
-    .then(function(res) {
-        response.json(res);
-    })
-    .error(function(err) {
-      console.error(err);
-      response.sendStatus(500);
-    });
-  }
-
-  /*if (!query || !query.address) {
-    response.sendStatus(400);
-  } else {
-    console.log('Test Address: '+ query.address);
-    geocoder.geocode(query.address,function (err, data){
-    response.json(data);
-    });
-   
-  }*/
-});
-
 app.get('/location/coordinates', function(request, response) {
   // extract the query from the request URL
   var query = request.query;
