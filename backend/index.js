@@ -17,10 +17,6 @@ var uber = new Uber({
   sandbox: true, // optional, defaults to false
   // proxy: 'PROXY URL' // optional, defaults to none
 });
-/*if(result.error){ Test to see if API key was loaded in
-  throw result.error;
-}
-console.log(result.parsed);*/
 
 app.get('/location/address', function(request, response) {
   var query = request.query;
@@ -47,11 +43,6 @@ app.get('/location/address', function(request, response) {
     console.log('error', error.message);
   });
 });
-
-// ... prints
-// Theresienhöhe 11, 80339 Munich, Germany
-// { lat: 48.1341651, lng: 11.5464794 }
-// Europe/Berlin
 
 app.get('/index', function(request, response) {
   // alert("wassup");
@@ -98,6 +89,7 @@ app.get('/location/coordinates', function(request, response) {
     });
   }
 });
+
 const cards = [
         {id: 0,'location': 'Chicago, IL','price': '1','time': '10:00 PM', 'link': 'https://images.unsplash.com/photo-1524168272322-bf73616d9cb5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=161ce6b10a1b9518237d89cc7510a018&auto=format&fit=crop&w=3300&q=80',
         'info':'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate, eros quis vulputate convallis, lectus mauris ornare tortor, vel malesuada arcu diam id eros. Vestibulum quis purus et felis eleifend auctor. Proin sed eros feugiat, faucibus ipsum sit amet, sagittis dolor. Aenean posuere leo in faucibus congue. In hac habitasse platea dictumst. Etiam in nisi elementum, maximus felis eu, cursus nisi. Quisque ac commodo neque. Fusce elit risus, pulvinar ac magna eu, sagittis vestibulum arcu.'},
