@@ -2,13 +2,13 @@ const Parse = require('parse/node');
 
 Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
 Parse.initialize(
-  'BCrUQVkk80pCdeImSXoKXL5ZCtyyEZwbN7mAb11f', // This is your Application ID
-  '4wPYRKbpTJeCdmFNaS31AiQZ8344aaYubk6Uo8VW', // This is your Javascript key
-  '5AVAtvlGlG5cEeolatkFDhY5p99PzoBUvm7MBLMo' // This is your Master key (never use it in the frontend)
+  'mzhOlXatBmYQSNUS1DM8qkFtWyUzUNPqCTtvS3Jk', // This is your Application ID
+  'fuErVJGUuOmR0lFKJYaycPfEPnNxckNB7eyLmpwp', // This is your Javascript key
+  '2C5w4GFdMvThWCeKnvuF4IsR4mJqXCmy8IXH9R6d' // This is your Master key (never use it in the frontend)
 );
 
-const Trip = Parse.Object.extend('Trip');
-const myNewObject = new Trip();
+const MyCustomClass = Parse.Object.extend('MyCustomClassName');
+const myNewObject = new MyCustomClass();
 
 myNewObject.set('myCustomKey1Name', 'myCustomKey1Value');
 myNewObject.set('myCustomKey2Name', 'myCustomKey2Value');
