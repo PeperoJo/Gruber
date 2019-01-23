@@ -14,6 +14,7 @@
     "express": "^4.16.4",
     "joi": "^13.1.0",
     "node-uber": "^2.0.0",
-    "opencage-api-client": "^0.3.0"
+    "opencage-api-client": "^0.3.0",
+    "parse": "^2.1.0"
   }
 }
