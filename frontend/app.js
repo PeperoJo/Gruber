@@ -2,7 +2,7 @@ var myApp = angular.module('myApp',[]) ;
 
 myApp.controller('mainController',['$scope', '$http', function($scope,$http) {
     
-    $http({
+  $http({
   method: 'GET',
   url: 'http://localhost:3000/gruber'
 }).then(function successCallback(response) {
@@ -15,5 +15,4 @@ myApp.controller('mainController',['$scope', '$http', function($scope,$http) {
     // or server returns response with an error status.
   });
  
-    
 }])
