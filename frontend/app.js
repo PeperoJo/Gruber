@@ -1,19 +1,27 @@
 var myApp = angular.module('myApp',['ngParse']) ;
 
-var TripModel = function(Parse) {
+/* Place Model */
+var PlaceModel = function(Parse) {
     this.Parse = Parse;
     this.data = {};
     this.collection = [];
-    this.name = 'Trip';
+    this.name = 'Place';
     this.fields = [
-            'destination'
+            'name',
+            'streetAddress',
+            'State',
+            'City',
+            'Zip'
     ];
     this.New = New;
     this.getById = getById;
+    this.getByName = getByName;
+    this.getByDest = getByDest;
+//    this.addPlace = addPlace;
 
     function New(obj) {
         if (angular.isUndefined(obj)) {
-            const parseObject = new this.Parse.Object(this.name)
+            const parseObject = new this.Parse.Object(this.name);
             this.Parse.defineAttributes(parseObject, this.fields);
             return parseObject;
         } else {
@@ -29,32 +37,59 @@ var TripModel = function(Parse) {
                 return Promise.resolve(result);
             }).catch(error => Promise.reject(error));
     }
-    // function getByName(name) {
-    //     console.log('name', name)
-    //     return new this.Parse.Query(this.New())
-    //         .equalTo('name', name)
-    //         .first()
-    //         .then(result => {
-    //             this.Parse.defineAttributes(result, this.fields);
-    //             this.data = result;
-    //             console.log('result', result)
-    //             return result
-    //         })
-    // }
-    // class getAllAgencies() {
-    //     return new this.Parse.Query(this.New()).find(agencies => {
-    //         agencies.forEach(agency =>
-    //             this.Parse.defineAttributes(agency, this.fields)
-    //         );
-    //         this.collection = agencies;
-    //         return Promise.resolve(agencies);
-    //     }).catch(error => Promise.reject(error));
-    // }
+    function getByName(name) {
+         console.log('name', name)
+         return new this.Parse.Query(this.New())
+             .equalTo('name', name)
+             .first()
+             .then(result => {
+                 this.Parse.defineAttributes(result, this.fields);
+                 this.data = result;
+                 console.log('result', result)
+                 return result
+             })
+     }
+    function getByDest(dest) {
+         return new this.Parse.Query(this.New())
+             .equalTo('destination', dest)
+             .first()
+             .then(result => {
+                 this.Parse.defineAttributes(result, this.fields);
+                 this.data = result;
+                 return result;
+             })
+     }
+//    function addPlace(place){
+//        for (i = 0; i < place.length; i++) {
+//            var myNewCard = this.New();
+//            console.log(myNewCard);
+//            Object.keys(place[i]).forEach(function (key) {
+//                myNewCard.set(key, place[i][key]);
+//                myNewCard.save().then(
+//                    (result) => {
+//                          console.log('ParseObject created', result);
+//                    },
+//                    (error) => {
+//                      console.error('Error while creating ParseObject: ', error);
+//                });
+//            });   
+//        }
+//    }
+    //     class getAllAgencies() {
+    //         return new this.Parse.Query(this.New()).find(agencies => {
+    //             agencies.forEach(agency =>
+    //                 this.Parse.defineAttributes(agency, this.fields)
+    //             );
+    //             this.collection = agencies;
+    //             return Promise.resolve(agencies);
+    //         }).catch(error => Promise.reject(error));
+    //     }
+    
 }
-TripModel
+PlaceModel
     .$inject = ['Parse'];
 myApp
-    .service('TripModel', TripModel);
+    .service('PlaceModel', PlaceModel);
 
 angular.module('myApp')
   .config(['ParseProvider', function(ParseProvider) {
@@ -64,13 +99,31 @@ angular.module('myApp')
     ParseProvider.serverURL = 'https://parseapi.back4app.com';
   }]);
 
-
-myApp.controller('mainController',['$scope', '$http', 'TripModel',function($scope,$http,TripModel) {
-
-  TripModel.getById('srP5gJEtFt').then(function(result){
-    console.log("trip result: ..", result);
-  });
+/* Controller */
+myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($scope,$http,PlaceModel) {    
+    const object = {
+        'name': 'School',
+        'streetAddress': 'Test',
+        'State': 'IN',
+        'City': 'Notre Dame',
+        'Zip': '46545'
+    };
     
+    PlaceModel.data = PlaceModel.New();
+    console.log("This is: ", PlaceModel.data)
+    Object.keys(object).forEach(function (key) {
+        PlaceModel.data[key] = object[key];
+    });
+        
+    PlaceModel.data.save().then(
+        (result) => {
+            console.log('ParseObject created', result);
+        },
+        (error) => {
+            console.error('Error while creating ParseObject: ', error);
+        });
+//    PlaceModel.addPlace(object);
+
 //   $http({
 //   method: 'GET',
 //   url: 'http://localhost:3000/gruber'

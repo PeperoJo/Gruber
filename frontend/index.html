@@ -60,7 +60,7 @@
     outline: #e8e8e8 solid 1px;
     -webkit-filter: grayscale(90%);
     filter: grayscale(90%);
-}
+  }
   div .cardinfo {
     margin: 20px;
     margin-bottom: 20px;
@@ -72,7 +72,7 @@
     top: 75px;
     color: white;
     font-size: 30px;
-}
+  }
   hr {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -110,10 +110,7 @@
 </style>
 
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"></script>
-<script src="node_modules/parse/dist/parse.min.js"></script>
-<script src="node_modules/angular-parse/angular-parse.js"></script>
-<script src="app.js"></script>
+
 <!--
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
@@ -125,6 +122,11 @@
 <div class="sticky"><a href="index.html">Gruber</a> <a href="Explore.html">Explore</a> <a href="Trending.html">Trending</a> <a href="News.html">News</a> </div>
 
 <!--<button type="button" class="btAdd btn btn-primary">+</button>    -->
+
+<div>
+    <label></label>
+    <input type="text" ng-model="handle" />
+</div>
     
 <div class="card" ng-repeat="item in cards track by $index">
   <img class="cardpreview" ng-src="{{item.link}}">
@@ -144,4 +146,12 @@
    
     
 </body>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.min.js"></script>
+<script src="node_modules/parse/dist/parse.min.js"></script>
+<script src="node_modules/angular-parse/angular-parse.js"></script>
+
+<script src="app.js"></script>
+    
+    
 </html>
