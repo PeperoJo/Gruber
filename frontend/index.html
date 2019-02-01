@@ -1,157 +1,73 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
+
 <head>
-<style>
-  div.sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    background-color: gray;
-    padding: 0px;
-    margin: 0px;
-    font-size: 20px;
-    width: 100%
-  }
-  body {
-    background-color: #FFFFFF;
-  }
+    <!-- Customized style sheet -->
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-  h1 {
-    color: black;
-    text-align: center;
-  }
-
-  p {
-    font-family: verdana;
-    font-size: 20px;
-  }
-
-  .card {
-    position: relative;
-    border-radius: 5px;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background-color: white;
-    box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.1);
-    width: 400px;
-    z-index: -1;
-    /*padding: 25px;*/
-
-  }
-  .cardpreview {
-    object-fit: cover;
-  }
-  div img {
-    background-image: linear-gradient(
-      hsla(10, 10%, 0%, 0.6),
-      transparent;
-    );
-
-    width: 100%;
-    height: 125px;
-    overflow: hidden;
-    border-radius: 5px 5px 0px 0px;
-    /*max-width:100%;
-    max-height:100px;*/
-  }
-  .default-user {
-    position: absolute;
-    outline: #e8e8e8 solid 1px;
-    -webkit-filter: grayscale(90%);
-    filter: grayscale(90%);
-  }
-  div .cardinfo {
-    margin: 20px;
-    margin-bottom: 20px;
-  }
-  .cardlocation {
-    font-family: 'Roboto', sans-serif;
-    position: absolute;
-    left: 25px;
-    top: 75px;
-    color: white;
-    font-size: 30px;
-  }
-  hr {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 90%;
-    border-color: #dddddd;
-  }
-  .buttonCard {
-    font-family: 'Roboto', sans-serif;
-    /*font-weight: bold;*/
-    /*background-color: blue;*/
-    display: inline-block;
-    margin-right: 10px;
-  }
-  .buttonGroup {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 10px;
-  }
-  .btJoin {
-    color: #6BC16D;
-  }
-  .btInt {
-    color: #2f527b;
-  }
-  .btDis{
-    color: #b24944;
-  }
-  .btAdd{
-  position: fixed;
-/*  margin-right: 10px;*/
-/*  padding-right: 10px;*/
-  margin-left: 80%;
-  margin-top: 50%;
-  }
-</style>
-
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
-<!--
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
-    -->
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
+    <!-- Material Icon font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+    <!-- Angular Material Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+    <!-- Angular Parse files -->
+    <script src="node_modules/parse/dist/parse.min.js"></script>
+    <script src="node_modules/angular-parse/angular-parse.js"></script>
+    <script src="app.js"></script>
 </head>
 
-<body ng-controller="mainController">
+<body>
+    <div ng-controller="mainController" ng-cloak="" class="navBar">
+      <md-content class="md-padding">
+        <md-nav-bar
+          md-no-ink-bar="disableInkBar"
+          md-selected-nav-item="currentNavItem"
+          nav-bar-aria-label="navigation links">
+          <md-nav-item md-nav-click="goto('gruber')" name="gruber">
+            Gruber
+          </md-nav-item>
+          <md-nav-item md-nav-click="goto('explore')" name="explore">
+            Explore
+          </md-nav-item>
+          <md-nav-item md-nav-click="goto('destinations')" name="destinations">
+            Destinations
+          </md-nav-item>
+          <md-nav-item md-nav-click="goto('friends')" name="friends">
+           Friends
+          </md-nav-item>
+        </md-nav-bar>
+            <md-content flex="" layout-padding="">
+                <span>{{status}}</span>
+                <div class="ext-content">
+                  External content for `<span>{{currentNavItem}}</span>`.
+                </div>
+          </md-content>
+    </div>
 
-<div class="sticky"><a href="index.html">Gruber</a> <a href="Explore.html">Explore</a> <a href="Trending.html">Trending</a> <a href="News.html">News</a> </div>
+    <div class="card" ng-repeat="item in cards track by $index">
+        <img class="cardpreview" ng-src="{{item.link}}">
+        <div class="cardlocation">{{item.location}}</div>
+        <div class="cardinfo">
+            {{item.info}}
+        </div>
+        <hr>
+        <div class="buttonGroup">
+            <div class="buttonCard btJoin">JOIN</div>
+            <div class="buttonCard btInt">INTERESTED</div>
+            <div class="buttonCard btDis">DISMISS</div>
+        </div>
 
-<!--<button type="button" class="btAdd btn btn-primary">+</button>    -->
+    </div>
 
-<div>
-    <label></label>
-    <input type="text" ng-model="handle" />
-</div>
-    
-<div class="card" ng-repeat="item in cards track by $index">
-  <img class="cardpreview" ng-src="{{item.link}}">
-  <div class="cardlocation">{{item.location}}</div>
-  <div class="cardinfo">
-      {{item.info}}
-  </div>
-  <hr>
-  <div class="buttonGroup">
-    <div class= "buttonCard btJoin">JOIN</div>
-    <div class= "buttonCard btInt">INTERESTED</div>
-    <div class= "buttonCard btDis">DISMISS</div>
-  </div>
-
-</div>
-
-   
-    
 </body>
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.min.js"></script>
-<script src="node_modules/parse/dist/parse.min.js"></script>
-<script src="node_modules/angular-parse/angular-parse.js"></script>
 
-<script src="app.js"></script>
-    
-    
 </html>

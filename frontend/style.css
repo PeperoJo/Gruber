@@ -1,0 +1,109 @@
+  div.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: gray;
+    padding: 0px;
+    margin: 0px;
+    font-size: 20px;
+    width: 100%
+  }
+  body {
+    background-color: #FFFFFF;
+  }
+
+  h1 {
+    color: black;
+    text-align: center;
+  }
+
+  p {
+    font-family: verdana;
+    font-size: 20px;
+  }
+
+  .card {
+    position: relative;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.1);
+    width: 400px;
+    z-index: -1;
+    /*padding: 25px;*/
+
+  }
+  .cardpreview {
+    object-fit: cover;
+  }
+  div img {
+    background-image: linear-gradient(
+      hsla(10, 10%, 0%, 0.6),
+      transparent;
+    );
+
+    width: 100%;
+    height: 125px;
+    overflow: hidden;
+    border-radius: 5px 5px 0px 0px;
+    /*max-width:100%;
+    max-height:100px;*/
+  }
+  .default-user {
+    position: absolute;
+    outline: #e8e8e8 solid 1px;
+    -webkit-filter: grayscale(90%);
+    filter: grayscale(90%);
+  }
+  div .cardinfo {
+    margin: 20px;
+    margin-bottom: 20px;
+  }
+  .cardlocation {
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    left: 25px;
+    top: 75px;
+    color: white;
+    font-size: 30px;
+  }
+  hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    border-color: #dddddd;
+  }
+  .buttonCard {
+    font-family: 'Roboto', sans-serif;
+    /*font-weight: bold;*/
+    /*background-color: blue;*/
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .buttonGroup {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+  }
+  .btJoin {
+    color: #6BC16D;
+  }
+  .btInt {
+    color: #2f527b;
+  }
+  .btDis{
+    color: #b24944;
+  }
+  .btAdd{
+  position: fixed;
+/*  margin-right: 10px;*/
+/*  padding-right: 10px;*/
+  margin-left: 80%;
+  margin-top: 50%;
+  }
+    md-content .ext-content {
+      padding: 50px;
+      margin: 20px;
+      background-color: #FFF2E0; }

@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp',['ngParse']) ;
+var myApp = angular.module('myApp',['ngParse', 'ngMaterial']);
 
 /* Place Model */
 var PlaceModel = function(Parse) {
@@ -17,7 +17,6 @@ var PlaceModel = function(Parse) {
     this.getById = getById;
     this.getByName = getByName;
     this.getByDest = getByDest;
-//    this.addPlace = addPlace;
 
     function New(obj) {
         if (angular.isUndefined(obj)) {
@@ -59,22 +58,6 @@ var PlaceModel = function(Parse) {
                  return result;
              })
      }
-//    function addPlace(place){
-//        for (i = 0; i < place.length; i++) {
-//            var myNewCard = this.New();
-//            console.log(myNewCard);
-//            Object.keys(place[i]).forEach(function (key) {
-//                myNewCard.set(key, place[i][key]);
-//                myNewCard.save().then(
-//                    (result) => {
-//                          console.log('ParseObject created', result);
-//                    },
-//                    (error) => {
-//                      console.error('Error while creating ParseObject: ', error);
-//                });
-//            });   
-//        }
-//    }
     //     class getAllAgencies() {
     //         return new this.Parse.Query(this.New()).find(agencies => {
     //             agencies.forEach(agency =>
@@ -100,7 +83,14 @@ angular.module('myApp')
   }]);
 
 /* Controller */
-myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($scope,$http,PlaceModel) {    
+myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($scope,$http,PlaceModel) {
+    
+    $scope.currentNavItem = 'Gruber';
+
+    $scope.goto = function(page) {
+      $scope.status = "Goto " + page;
+    };
+    
     const object = {
         'name': 'School',
         'streetAddress': 'Test',
@@ -110,7 +100,7 @@ myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($sco
     };
     
     PlaceModel.data = PlaceModel.New();
-    console.log("This is: ", PlaceModel.data)
+    console.log("This is: ", PlaceModel.data);
     Object.keys(object).forEach(function (key) {
         PlaceModel.data[key] = object[key];
     });
@@ -121,7 +111,8 @@ myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($sco
         },
         (error) => {
             console.error('Error while creating ParseObject: ', error);
-        });
+        }
+    );
 //    PlaceModel.addPlace(object);
 
 //   $http({
