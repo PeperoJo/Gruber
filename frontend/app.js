@@ -17,6 +17,7 @@ var PlaceModel = function(Parse) {
     this.getById = getById;
     this.getByName = getByName;
     this.getByDest = getByDest;
+    this.createObject = createObject;
 
     function New(obj) {
         if (angular.isUndefined(obj)) {
@@ -58,6 +59,22 @@ var PlaceModel = function(Parse) {
                  return result;
              })
      }
+     function createObject(object){
+        PlaceModel.data = PlaceModel.New();
+        console.log("This is: ", PlaceModel.data);
+        Object.keys(object).forEach(function (key) {
+            PlaceModel.data[key] = object[key];
+        });
+       
+        PlaceModel.data.save().then(
+            (result) => {
+                console.log('ParseObject created', result);
+            },
+            (error) => {
+                console.error('Error while creating ParseObject: ', error);
+            }
+        );
+    };    
     //     class getAllAgencies() {
     //         return new this.Parse.Query(this.New()).find(agencies => {
     //             agencies.forEach(agency =>
@@ -94,25 +111,16 @@ myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($sco
     const object = {
         'name': 'School',
         'streetAddress': 'Test',
-        'State': 'IN',
+        'State': 'Indiana',
         'City': 'Notre Dame',
         'Zip': '46545'
     };
     
-    PlaceModel.data = PlaceModel.New();
-    console.log("This is: ", PlaceModel.data);
-    Object.keys(object).forEach(function (key) {
-        PlaceModel.data[key] = object[key];
-    });
-        
-    PlaceModel.data.save().then(
-        (result) => {
-            console.log('ParseObject created', result);
-        },
-        (error) => {
-            console.error('Error while creating ParseObject: ', error);
-        }
-    );
+    
+
+  /*
+   
+    */
 //    PlaceModel.addPlace(object);
 
 //   $http({
