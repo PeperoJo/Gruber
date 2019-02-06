@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp',['ngParse', 'ngMaterial']);
+var myApp = angular.module('myApp',['ngParse', 'ngRoute', 'ngMaterial']);
 
 /* Place Model */
 var PlaceModel = function(Parse) {
@@ -45,7 +45,7 @@ var PlaceModel = function(Parse) {
                  this.Parse.defineAttributes(result, this.fields);
                  this.data = result;
                  console.log('result', result)
-                 return result
+                 return result;
              })
      }
     function getByDest(dest) {
@@ -81,6 +81,22 @@ angular.module('myApp')
     ParseProvider.initialize(MY_PARSE_APP_ID, MY_PARSE_JS_KEY);
     ParseProvider.serverURL = 'https://parseapi.back4app.com';
   }]);
+
+angular.module('myApp').config(['$locationProvider', function($locationProvider) {
+  $locationProvider.hashPrefix('');
+}]);
+
+angular.module('myApp').config(function($routeProvider){    
+    $routeProvider
+    .when('/', {
+        templateUrl: 'pages/home.html',
+        controller: 'mainController'
+    })
+    .when('/add', {
+        templateUrl: 'pages/form.html',
+        controller: 'secondController'            
+    })
+})
 
 /* Controller */
 myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($scope,$http,PlaceModel) {
@@ -129,3 +145,8 @@ myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($sco
 //   });
  
 }])
+
+myApp.controller('secondController', ['$scope', '$log', '$routeParams', function ($scope, $log, $routeParams) {
+    $scope.num = $routeParams.num || 1;
+
+}]);

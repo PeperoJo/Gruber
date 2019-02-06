@@ -24,19 +24,18 @@
     <script src="node_modules/angular-parse/angular-parse.js"></script>
     <script src="app.js"></script>
 </head>
-
 <body>
-    <div ng-controller="mainController" ng-cloak="" class="navBar">
+    <div ng-cloak="" class="navBar">
       <md-content class="md-padding">
         <md-nav-bar
           md-no-ink-bar="disableInkBar"
           md-selected-nav-item="currentNavItem"
           nav-bar-aria-label="navigation links">
-          <md-nav-item md-nav-click="goto('gruber')" name="gruber">
+          <md-nav-item md-nav-href="#/" name="gruber">
             Gruber
           </md-nav-item>
-          <md-nav-item md-nav-click="goto('explore')" name="explore">
-            Explore
+          <md-nav-item md-nav-href="#/add" name="explore">
+            Add
           </md-nav-item>
           <md-nav-item md-nav-click="goto('destinations')" name="destinations">
             Destinations
@@ -46,13 +45,18 @@
           </md-nav-item>
         </md-nav-bar>
             <md-content flex="" layout-padding="">
+<!--
                 <span>{{status}}</span>
                 <div class="ext-content">
                   External content for `<span>{{currentNavItem}}</span>`.
                 </div>
+-->
+            <div ng-view></div>
           </md-content>
+        </md-content>
     </div>
 
+<!--
     <div class="card" ng-repeat="item in cards track by $index">
         <img class="cardpreview" ng-src="{{item.link}}">
         <div class="cardlocation">{{item.location}}</div>
@@ -67,6 +71,7 @@
         </div>
 
     </div>
+-->
 
 </body>
 
