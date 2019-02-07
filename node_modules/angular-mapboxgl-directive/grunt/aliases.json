@@ -1,0 +1,16 @@
+{
+	"default": [
+		"build"
+	],
+	"build": [
+		"clean:dist",
+		"jshint",
+		"concat:dist",
+		"less:dist",
+		"browserify",
+		"uglify"
+	],
+	"preview": [
+		"connect:server"
+	]
+}

@@ -1,0 +1,94 @@
+// Loading Background Variables
+@backgroundColorLoading: #999999;
+@backgroundOpacityLoading: 0.75;
+
+// Loading Spinner Variables
+@spinnerWidth: 40px;
+@spinnerHeight: 40px;
+@spinnerColor: #333333;
+@spinnerOpacity: 0.6;
+
+
+.angular-mapboxgl-compare {
+  position: relative;
+
+  .compare-map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+.angular-mapboxgl-map {
+  position: relative;
+
+  .angular-mapboxgl-map-loader {
+    // ...
+
+    .spinner {
+      display: none;
+      width: @spinnerWidth;
+      height: @spinnerHeight;
+      top: ~"calc(50% - (@{spinnerHeight} / 2))";
+      left: ~"calc(50% - (@{spinnerWidth} / 2))";
+      position: relative;
+      //margin: 100px auto;
+
+      .double-bounce {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: @spinnerColor;
+        opacity: @spinnerOpacity;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+
+        &.delayed {
+          -webkit-animation-delay: -1.0s;
+          animation-delay: -1.0s;
+        }
+      }
+    }
+
+    &.angular-mapboxgl-map-loading {
+      position: absolute;
+      background-color: @backgroundColorLoading;
+      width: 100%;
+      height: 100%;
+      opacity: @backgroundOpacityLoading;
+      z-index: 9900;
+
+      .spinner {
+        display: block;
+      }
+    }
+  }
+
+  // Fix directions style
+  .directions-icon-depart, .directions-icon-arrive {
+    background-position: 50% 50%;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Animations
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}

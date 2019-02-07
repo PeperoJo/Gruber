@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp',['ngParse', 'ngRoute', 'ngMaterial']);
+var myApp = angular.module('myApp',['ngParse', 'ngRoute', 'ngMaterial', 'mapboxgl-directive']);
 
 /* Place Model */
 var PlaceModel = function(Parse) {
@@ -96,6 +96,10 @@ angular.module('myApp').config(function($routeProvider){
         templateUrl: 'pages/form.html',
         controller: 'secondController'            
     })
+    .when('/dest', {
+        templateUrl: 'pages/destination.html',
+        controller: 'mapController'            
+    })
 })
 
 /* Controller */
@@ -147,6 +151,28 @@ myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($sco
 }])
 
 myApp.controller('secondController', ['$scope', '$log', '$routeParams', function ($scope, $log, $routeParams) {
-    $scope.num = $routeParams.num || 1;
+    $scope.submit = function() {
+        $scope.list.push()
+    }
+    
+    $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
+        'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
+        'WY').split(' ').map(function(state) {
+            return {abbrev: state};
+    });
+}]);
 
+myApp.run([function () {
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZ3J1YmVybmQiLCJhIjoiY2pydHVyamE0MDJpdDQ0b2gxOHlqM2VtaiJ9.KdzYKQORKLwPfgATFxYIZw';
+}])
+
+myApp.controller('mapController', ['$scope', function ($scope) {
+        $scope.glControls = {
+          navigation: {
+            enabled: true,
+            options: {
+              position: 'top-left'
+            }
+          }
+        };
 }]);

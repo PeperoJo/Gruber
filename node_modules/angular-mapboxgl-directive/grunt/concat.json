@@ -1,0 +1,12 @@
+{
+	"dist": {
+		"options": {
+			"banner": "/*!\n*  <%= package.name %> <%= package.version %> <%= grunt.template.today(\"yyyy-mm-dd\") %>\n*  <%= package.description %>\n*  <%= package.repository.type %>: <%= package.repository.url %>\n*/\n(function (angular, mapboxgl) {\n'use strict';\n",
+			"footer": "\n}(angular, mapboxgl));"
+		},
+		"files": {
+			"dist/<%= package.name %>.js": ["src/directives/mapboxgl.js", "src/directives/mapboxglCompare.js", "src/factories/*.js", "src/**/*.js"],
+			"public/lib/<%= package.name %>.js": ["src/directives/mapboxgl.js", "src/directives/mapboxglCompare.js", "src/factories/*.js", "src/**/*.js"]
+		}
+	}
+}
