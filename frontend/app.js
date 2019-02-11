@@ -1,30 +1,22 @@
 var myApp = angular.module('myApp',['ngParse', 'ngRoute', 'ngMaterial', 'mapboxgl-directive']);
 
-/* Place Model */
-var PlaceModel = function(Parse) {
+/* Trip Model */
+var TripModel = function(Parse) {
     this.Parse = Parse;
     this.data = {};
     this.collection = [];
-    this.name = 'Place';
-//    this.fields = [
-//            'name',
-//            'streetAddress',
-//            'State',
-//            'City',
-//            'Zip'
-//    ];
+    this.name = 'Trip';
     this.New = New;
     this.getById = getById;
     this.getByName = getByName;
     this.getByDest = getByDest;
-
+	this.addTrip = addTrip;
+	
     function New(obj) {
         if (angular.isUndefined(obj)) {
             const parseObject = new this.Parse.Object(this.name);
-            //this.Parse.defineAttributes(parseObject, this.fields);
             return parseObject;
         } else {
-            //this.Parse.defineAttributes(obj, this.fields);
             return obj;
         }
     }
@@ -58,6 +50,22 @@ var PlaceModel = function(Parse) {
                  return result;
              })
      }
+	function addTrip(trip) {
+		var newTrip = this.New();
+		console.log(this.data);
+		Object.keys(trip).forEach(function (key) {
+			newTrip.set(key, trip[key]);
+		});
+
+		newTrip.save().then(
+			(result) => {
+				console.log('ParseObject created', result);
+			},
+			(error) => {
+				console.error('Error while creating ParseObject: ', error);
+			}
+		);		
+	}
     //     class getAllAgencies() {
     //         return new this.Parse.Query(this.New()).find(agencies => {
     //             agencies.forEach(agency =>
@@ -69,10 +77,10 @@ var PlaceModel = function(Parse) {
     //     }
     
 }
-PlaceModel
+TripModel
     .$inject = ['Parse'];
 myApp
-    .service('PlaceModel', PlaceModel);
+    .service('TripModel', TripModel);
 
 angular.module('myApp')
   .config(['ParseProvider', function(ParseProvider) {
@@ -103,15 +111,13 @@ angular.module('myApp').config(function($routeProvider){
 })
 
 /* Controller */
-myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($scope,$http,PlaceModel) {
+myApp.controller('mainController',['$scope', '$http', 'TripModel',function($scope,$http,TripModel) {
     
     $scope.currentNavItem = 'Gruber';
 
     $scope.goto = function(page) {
       $scope.status = "Goto " + page;
     };
-
-//    PlaceModel.addPlace(object);
 
 //   $http({
 //   method: 'GET',
@@ -128,25 +134,11 @@ myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($sco
  
 }])
 
-myApp.controller('secondController', ['$scope', 'PlaceModel', function ($scope, PlaceModel) {
+myApp.controller('secondController', ['$scope', 'TripModel', function ($scope, TripModel) {
     $scope.getFormData = function() {
         alert("submitted");
 		console.log($scope.user);
-		
-		PlaceModel.data = PlaceModel.New();
-		console.log("This is: ", PlaceModel.data);
-		Object.keys($scope.user).forEach(function (key) {
-			PlaceModel.data.set(key, $scope.user[key]);
-		});
-
-		PlaceModel.data.save().then(
-			(result) => {
-				console.log('ParseObject created', result);
-			},
-			(error) => {
-				console.error('Error while creating ParseObject: ', error);
-			}
-		);
+		TripModel.addTrip($scope.user);
     }
     
     $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
