@@ -1,4 +1,4 @@
-<div ng-controller="secondController" layout="column" ng-cloak="" class="md-inline-form inputdemoBasicUsage" ng-app="myApp">
+<div ng-controller="secondController" layout="column" ng-cloak="" class="md-inline-form inputdemoBasicUsage" ng-submit="getFormData()" ng-app="myApp">
   <md-content layout-padding="">
     <div>
       <form name="userForm">
@@ -74,7 +74,12 @@
           <label>Description</label>
           <textarea ng-model="user.description" md-maxlength="150" rows="5" md-select-on-focus=""></textarea>
         </md-input-container>
-
+		  
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
+			<md-button class="md-raised md-primary"  type="submit">
+				Submit
+			</md-button>
+        </section>
 
       </form>
     </div>

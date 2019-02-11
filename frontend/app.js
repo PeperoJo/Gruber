@@ -6,13 +6,13 @@ var PlaceModel = function(Parse) {
     this.data = {};
     this.collection = [];
     this.name = 'Place';
-    this.fields = [
-            'name',
-            'streetAddress',
-            'State',
-            'City',
-            'Zip'
-    ];
+//    this.fields = [
+//            'name',
+//            'streetAddress',
+//            'State',
+//            'City',
+//            'Zip'
+//    ];
     this.New = New;
     this.getById = getById;
     this.getByName = getByName;
@@ -21,10 +21,10 @@ var PlaceModel = function(Parse) {
     function New(obj) {
         if (angular.isUndefined(obj)) {
             const parseObject = new this.Parse.Object(this.name);
-            this.Parse.defineAttributes(parseObject, this.fields);
+            //this.Parse.defineAttributes(parseObject, this.fields);
             return parseObject;
         } else {
-            this.Parse.defineAttributes(obj, this.fields);
+            //this.Parse.defineAttributes(obj, this.fields);
             return obj;
         }
     }
@@ -110,29 +110,7 @@ myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($sco
     $scope.goto = function(page) {
       $scope.status = "Goto " + page;
     };
-    
-    const object = {
-        'name': 'School',
-        'streetAddress': 'Test',
-        'State': 'IN',
-        'City': 'Notre Dame',
-        'Zip': '46545'
-    };
-    
-    PlaceModel.data = PlaceModel.New();
-    console.log("This is: ", PlaceModel.data);
-    Object.keys(object).forEach(function (key) {
-        PlaceModel.data[key] = object[key];
-    });
-        
-    PlaceModel.data.save().then(
-        (result) => {
-            console.log('ParseObject created', result);
-        },
-        (error) => {
-            console.error('Error while creating ParseObject: ', error);
-        }
-    );
+
 //    PlaceModel.addPlace(object);
 
 //   $http({
@@ -150,9 +128,25 @@ myApp.controller('mainController',['$scope', '$http', 'PlaceModel',function($sco
  
 }])
 
-myApp.controller('secondController', ['$scope', '$log', '$routeParams', function ($scope, $log, $routeParams) {
-    $scope.submit = function() {
-        $scope.list.push()
+myApp.controller('secondController', ['$scope', 'PlaceModel', function ($scope, PlaceModel) {
+    $scope.getFormData = function() {
+        alert("submitted");
+		console.log($scope.user);
+		
+		PlaceModel.data = PlaceModel.New();
+		console.log("This is: ", PlaceModel.data);
+		Object.keys($scope.user).forEach(function (key) {
+			PlaceModel.data.set(key, $scope.user[key]);
+		});
+
+		PlaceModel.data.save().then(
+			(result) => {
+				console.log('ParseObject created', result);
+			},
+			(error) => {
+				console.error('Error while creating ParseObject: ', error);
+			}
+		);
     }
     
     $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
@@ -160,6 +154,7 @@ myApp.controller('secondController', ['$scope', '$log', '$routeParams', function
         'WY').split(' ').map(function(state) {
             return {abbrev: state};
     });
+	console.log($scope.user);
 }]);
 
 myApp.run([function () {
