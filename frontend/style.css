@@ -107,3 +107,21 @@
       padding: 50px;
       margin: 20px;
       background-color: #FFF2E0; }
+
+ .likebutton a {
+    color: gray;
+    text-decoration: none !important;
+    font-size: 1.55em;
+}
+
+ .likebutton a .glyphicon {
+    transition: all 0.5s;
+}
+
+ .likebutton a .glyphicon.glyphicon-heart {
+    color: #e74c3c;
+}
+
+ .likebutton a .glyphicon.glyphicon-heart-empty:hover {
+    transform: scale(1.1);
+}

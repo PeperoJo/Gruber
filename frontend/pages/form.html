@@ -1,53 +1,48 @@
 <div ng-controller="secondController" layout="column" ng-cloak="" class="md-inline-form inputdemoBasicUsage" ng-submit="getFormData()" ng-app="myApp">
   <md-content layout-padding="">
     <div>
-      <form name="userForm">
+      <form name="tripForm">
         <div layout-gt-xs="row">
           <md-input-container class="md-block" flex-gt-sm="">
             <label>Destination</label>
-            <input ng-model="user.title">
+            <input ng-model="trip.destination">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm="">
             <label>Email</label>
-            <input ng-model="user.email" type="email">
+            <input ng-model="trip.email" type="email">
           </md-input-container>
           <md-input-container>
             <label>Enter date</label>
-            <md-datepicker ng-model="user.submissionDate"></md-datepicker>
+            <md-datepicker ng-model="trip.submissionDate"></md-datepicker>
           </md-input-container>
         </div>
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm="">
             <label>Name</label>
-            <input ng-model="user.firstName">
-          </md-input-container>
-
-          <md-input-container class="md-block" flex-gt-sm="">
-            <label>Long Last Name That Will Be Truncated And 3 Dots (Ellipsis) Will Appear At The End</label>
-            <input ng-model="theMax">
+            <input ng-model="trip.name">
           </md-input-container>
         </div>
 
         <md-input-container class="md-block">
           <label>Address</label>
-          <input ng-model="user.address">
+          <input ng-model="trip.address">
         </md-input-container>
 
         <md-input-container md-no-float="" class="md-block">
-          <input ng-model="user.address2" placeholder="Address 2">
+          <input ng-model="trip.address2" placeholder="Address 2">
         </md-input-container>
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm="">
             <label>City</label>
-            <input ng-model="user.city">
+            <input ng-model="trip.city">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm="">
             <label>State</label>
-            <md-select ng-model="user.state">
+            <md-select ng-model="trip.state">
               <md-option ng-repeat="state in states" value="{{state.abbrev}}">
                 {{state.abbrev}}
               </md-option>
@@ -56,9 +51,9 @@
 
           <md-input-container class="md-block" flex-gt-sm="">
             <label>Postal Code</label>
-            <input name="postalCode" ng-model="user.postalCode" placeholder="12345" required="" ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+            <input name="postalCode" ng-model="trip.postalCode" placeholder="12345" required="" ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
 
-            <div ng-messages="userForm.postalCode.$error" role="alert" multiple="">
+            <div ng-messages="tripForm.postalCode.$error" role="alert" multiple="">
               <div ng-message="required" class="my-message">You must supply a postal code.</div>
               <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
                 code.
@@ -72,7 +67,7 @@
 
         <md-input-container class="md-block">
           <label>Description</label>
-          <textarea ng-model="user.description" md-maxlength="150" rows="5" md-select-on-focus=""></textarea>
+          <textarea ng-model="trip.description" md-maxlength="150" rows="5" md-select-on-focus=""></textarea>
         </md-input-container>
 		  
         <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
