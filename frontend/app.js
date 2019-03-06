@@ -270,11 +270,16 @@ myApp.controller('mapController', ['$scope', '$http', 'TripModel','GeoDecoder', 
 	
 }]);
 
-myApp.controller('friendController', ['$scope', function ($scope) {
+myApp.controller('friendController', ['$scope','TripModel', function ($scope, TripModel) {
+	TripModel.getByDest('Chicago').then(function(getResponse){
+		for(i = 0; i < $scope.messages.length; i++){
+			$scope.messages[i].what = getResponse.attributes.city;
+		}
+	});
 	var imagePath = 'img/list/60.jpeg';
 	$scope.messages = [{
 		face: imagePath,
-		what: 'Chicago this weekend?',
+		what: 'Stuff',
 		who: 'Gary',
 		when: '3:08PM',
 		notes: " Let's go! "
